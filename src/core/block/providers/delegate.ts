@@ -18,6 +18,7 @@ import { CoreEventsProvider } from '@providers/events';
 import { CoreSitesProvider } from '@providers/sites';
 import { CoreDelegate, CoreDelegateHandler } from '@classes/delegate';
 import { CoreBlockDefaultHandler } from './default-block-handler';
+import { CoreSitePluginsProvider } from '@core/siteplugins/providers/siteplugins';
 
 /**
  * Interface that all blocks must implement.
@@ -83,7 +84,7 @@ export class CoreBlockDelegate extends CoreDelegate {
     protected featurePrefix = 'CoreBlockDelegate_';
 
     constructor(logger: CoreLoggerProvider, sitesProvider: CoreSitesProvider, eventsProvider: CoreEventsProvider,
-            protected defaultHandler: CoreBlockDefaultHandler) {
+            protected defaultHandler: CoreBlockDefaultHandler, protected sitePluginsProvider: CoreSitePluginsProvider) {
         super('CoreBlockDelegate', logger, sitesProvider, eventsProvider);
     }
 
@@ -120,5 +121,13 @@ export class CoreBlockDelegate extends CoreDelegate {
      */
     isBlockSupported(name: string): boolean {
         return this.hasHandler(name, true);
+    }
+
+    getSitePluginName(name: string): string {
+        if (!this.isBlockSupported(name)) {
+            return '';
+        }
+        const handler = this.getHandler(name, true);
+        return this.sitePluginsProvider.getHandlerUniqueName(handler.plugin, handler.name);
     }
 }
