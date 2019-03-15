@@ -15,9 +15,10 @@
 import { Injector } from '@angular/core';
 import { CoreSitePluginsBaseHandler } from './base-handler';
 import { CoreBlockHandler, CoreBlockHandlerData } from '@core/block/providers/delegate';
+import { CoreSitePluginsBlockComponent } from '@core/siteplugins/components/block/block';
 
 /**
- * Handler to support a block using a site plugin.
+ * Handler to support a block using a site plugin. (sam update)
  */
 export class CoreSitePluginsBlockHandler extends CoreSitePluginsBaseHandler implements CoreBlockHandler {
 
@@ -26,6 +27,7 @@ export class CoreSitePluginsBlockHandler extends CoreSitePluginsBaseHandler impl
     }
 
     getDisplayData(injector: Injector, block: any, contextLevel: string, instanceId: number): CoreBlockHandlerData | Promise<CoreBlockHandlerData> {
+        console.log('getDisplayData for ' + block.name);
         let title,
             className;
         if (this.handlerSchema.displaydata && this.handlerSchema.displaydata.title) {
@@ -41,7 +43,7 @@ export class CoreSitePluginsBlockHandler extends CoreSitePluginsBaseHandler impl
         return {
             title: title,
             class: className,
-            component: 'CoreSitePluginsBlockComponent'
+            component: CoreSitePluginsBlockComponent
         };
     }
 }

@@ -1,4 +1,8 @@
 <!-- Only render the block if it's supported. -->
+<div>{{block.name}}</div>
+<div>LoadeD: {{loaded}}</div>
+<div>componentClass: {{componentClass ? 'Yes' : 'No'}}</div>
 <div *ngIf="loaded && componentClass" class="{{class}}">
+    <div>Loading dynamic component</div>
     <core-dynamic-component [component]="componentClass" [data]="data"></core-dynamic-component>
 </div>

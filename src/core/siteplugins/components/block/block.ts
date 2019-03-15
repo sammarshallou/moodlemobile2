@@ -32,7 +32,7 @@ import { CoreBlockDelegate } from '@core/block/providers/delegate';
     templateUrl: 'core-siteplugins-block.html',
 })
 export class CoreSitePluginsBlockComponent extends CoreBlockBaseComponent implements OnChanges {
-    @Input() block: string;
+    @Input() block: any;
     @Input() contextLevel: number;
     @Input() instanceId: number;
 
@@ -54,8 +54,13 @@ export class CoreSitePluginsBlockComponent extends CoreBlockBaseComponent implem
     ngOnChanges(): void {
         if (!this.component) {
             // Initialize the data.
-            const handler = this.sitePluginsProvider.getSitePluginHandler(this.blockDelegate.getSitePluginName(this.block));
+            const handlerName = this.blockDelegate.getHandlerName(this.block.name);
+            const handler = this.sitePluginsProvider.getSitePluginHandler(handlerName);
+            console.log('Handler? [' + handlerName + ']');
             if (handler) {
+                console.log('Yep.');
+                console.log(handler.plugin.component);
+                console.log(handler.handlerSchema);
                 this.component = handler.plugin.component;
                 this.method = handler.handlerSchema.method;
                 this.args = { };

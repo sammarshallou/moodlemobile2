@@ -52,6 +52,7 @@ export class CoreBlockComponent implements OnInit {
         // Get the data to render the block.
         this.blockDelegate.getBlockDisplayData(this.injector, this.block, this.contextLevel, this.instanceId).then((data) => {
             if (!data) {
+                console.log('No data: ' + this.block.name);
                 // Block not supported, don't render it.
                 return;
             }

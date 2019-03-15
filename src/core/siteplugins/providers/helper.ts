@@ -627,12 +627,18 @@ export class CoreSitePluginsHelperProvider {
      */
     protected registerBlockHandler(plugin: any, handlerName: string, handlerSchema: any, initResult: any): string | Promise<string> {
 
-        return this.registerComponentInitHandler(plugin, handlerName, handlerSchema, this.blockDelegate,
-            (uniqueName: string, result: any) => {
-                const blockName = (handlerSchema.moodlecomponent || plugin.component).replace('block_', '');
+        const uniqueName = this.sitePluginsProvider.getHandlerUniqueName(plugin, handlerName),
+            blockName = (handlerSchema.moodlecomponent || plugin.component).replace('block_', '');
 
-                return new CoreSitePluginsBlockHandler(uniqueName, blockName, handlerSchema, initResult);
-            });
+        this.blockDelegate.registerHandler(
+            new CoreSitePluginsBlockHandler(uniqueName, blockName, handlerSchema, initResult));
+        return uniqueName;
+            // plugin, handlerName, handlerSchema,
+            // (uniqueName: string, result: any) => {
+            //     const blockName = (handlerSchema.moodlecomponent || plugin.component).replace('block_', '');
+            //
+            //     return ;
+            // });
     }
 
 

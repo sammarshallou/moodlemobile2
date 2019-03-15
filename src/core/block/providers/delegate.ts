@@ -98,6 +98,7 @@ export class CoreBlockDelegate extends CoreDelegate {
      * @return {Promise<CoreBlockHandlerData>} Promise resolved with the display data.
      */
     getBlockDisplayData(injector: Injector, block: any, contextLevel: string, instanceId: number): Promise<CoreBlockHandlerData> {
+        console.log('getBlockDisplayData: ' + block.name + ' (exists? ' + this.hasHandler(name, true) + ')');
         return Promise.resolve(this.executeFunctionOnEnabled(block.name, 'getDisplayData', [injector, block]));
     }
 
@@ -123,11 +124,10 @@ export class CoreBlockDelegate extends CoreDelegate {
         return this.hasHandler(name, true);
     }
 
-    getSitePluginName(name: string): string {
-        if (!this.isBlockSupported(name)) {
+    getHandlerName(block: string): string {
+        if (!this.isBlockSupported(block)) {
             return '';
         }
-        const handler = this.getHandler(name, true);
-        return this.sitePluginsProvider.getHandlerUniqueName(handler.plugin, handler.name);
+        return this.getHandler(block, true).name;
     }
 }

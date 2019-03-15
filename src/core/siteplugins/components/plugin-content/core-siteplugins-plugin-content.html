@@ -1,3 +1,4 @@
+<div>Plugin content. Data loaded? {{dataLoaded}}</div>
 <core-loading [hideUntil]="dataLoaded">
     <core-compile-html [text]="content" [javascript]="javascript" [jsData]="jsData" [forceCompile]="forceCompile" #compile></core-compile-html>
 </core-loading>
