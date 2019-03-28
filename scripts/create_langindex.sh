@@ -240,7 +240,7 @@ print_title 'Generating language from code...'
 gulp lang
 
 print_title 'Getting languages'
-git clone https://git.in.moodle.com/moodle/moodle-langpacks.git $LANGPACKSFOLDER
+git clone https://git.in.moodle.com/moodle/moodle-langpacks.git --depth 1 --no-single-branch $LANGPACKSFOLDER
 pushd $LANGPACKSFOLDER
 BRANCHES=($(git branch -r --format="%(refname:lstrip=3)" --sort="refname" | grep MOODLE_))
 BRANCH=${BRANCHES[${#BRANCHES[@]}-1]}
