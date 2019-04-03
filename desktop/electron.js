@@ -68,6 +68,8 @@ function createWindow() {
 
     // Append some text to the user agent.
     mainWindow.webContents.setUserAgent(mainWindow.webContents.getUserAgent() + ' ' + userAgent);
+
+    mainWindow.webContents.openDevTools();
 }
 
 // Make sure that only a single instance of the app is running.
